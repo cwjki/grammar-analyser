@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock%}
+
+{% block body %}
+
+<h1>Resultados</h1><br>
+
+    <h3>Producciones: {{analyser.G.Productions}}</h3>
+    <h3>No Terminales: {{analyser.G.nonTerminals}}</h3>
+    <h3>Terminales: {{analyser.G.terminals}}</h3>
+    <br>
+
+    <h3>Firsts:</h3>
+    {% for first in analyser.firsts.items() %}
+        <h4>{{first}}</h4>
+    {% endfor %}
+    <br>
+
+    <h3>Follows:</h3>
+    {% for follow in analyser.follows.items() %}
+        <h4>{{follow}}</h4>
+    {% endfor %}
+    <br>
+
+    <h3>Gramática sin recursión izquierda:</h3>
+    <h4>Producciones: {{analyser.grammmar_without_left_recursion.Productions}}</h4>
+    <h4>No Terminales: {{analyser.grammmar_without_left_recursion.nonTerminals}}</h4>
+    <h4>Terminales: {{analyser.grammmar_without_left_recursion.terminals}}</h4>
+    <br>
+
+    <h3>Gramática sin prefijos comunes:</h3>
+    <h4>Producciones: {{analyser.grammar_without_common_prefix.Productions}}</h4>
+    <h4>No Terminales: {{analyser.grammar_without_common_prefix.nonTerminals}}</h4>
+    <h4>Terminales: {{analyser.grammar_without_common_prefix.terminals}}</h4>
+    <br>
+
+    <h3>Gramática sin producciones innecesarias:</h3>
+    <h4>Producciones: {{analyser.almost_FNCh.Productions}}</h4>
+    <h4>No Terminales: {{analyser.almost_FNCh.nonTerminals}}</h4>
+    <h4>Terminales: {{analyser.almost_FNCh.terminals}}</h4>
+    <br>
+
+
+    <h3>Es LL1: {{analyser.isLL1}}</h3>
+    {% if analyser.isLL1: %}
+        <h3>Tabla LL1:</h3>
+        {% for item in analyser.LL1Table.items() %}
+            <h4>{{item}}</h4>
+        {% endfor %}
+    {% else: %}
+        <h4><p>La cadena '{{ analyser.LL1_conflict[0] }}' produce conflicto ya que, existen casos en los que es conveniente aplicar las producciones '{{ analyser.LL1_conflict[1] }}' y '{{ analyser.LL1_conflict[2] }}'</p></h4>
+    {% endif %}
+    <br>
+    <br>
+    
+
+    <h3>Es SLR1: {{analyser.isSLR1}}</h3>
+    {% if analyser.isSLR1: %}
+        <h3>Tabla ACTION:</h3>
+        {% for item in analyser.SLR1Parser.action.items() %}
+            <h4>{{item}}</h4>
+        {% endfor %}
+        <br>
+        <h3>Tabla GO TO:</h3>
+        {% for item in analyser.SLR1Parser.goto.items() %}
+            <h4>{{item}}</h4>
+        {% endfor %}      
+    {% endif %}
+    <br>
+    <br>
+
+    <h3>Es LR1: {{analyser.isLR1}}</h3>
+    {% if analyser.isLR1: %}
+        <h3>Tabla ACTION:</h3>
+        {% for item in analyser.LR1Parser.action.items() %}
+            <h4>{{item}}</h4>
+        {% endfor %}
+        <br>
+        <h3>Tabla GO TO:</h3>
+        {% for item in analyser.LR1Parser.goto.items() %}
+            <h4>{{item}}</h4>
+        {% endfor %}         
+    {% endif %}
+    <br>
+    <br>
+    <br>
+
+
+    
+    {% if analyser.derivationsLen > 0 %}
+        <h3>Cadenas:</h3>
+        {% for i in range(analyser.derivationsLen) %}
+            <h3>{{ analyser.words[i][0] }}</h3>
+            <h3><pre>{{ analyser.derivationTree[i] }}</pre></h3>
+        {% endfor %}
+    {% endif %}
+    
+
+    {% if analyser.isSLR1: %}
+        <h3>Autómata LR0:</h3>
+        <img src="{{ url_for('static', filename='images/automatonLR0.svg') }}">
+    {% endif %}
+    <br>
+    <br>
+
+    {% if analyser.isLR1: %}
+        <h3>Autómata LR1:</h3>
+        <img src="{{ url_for('static', filename='images/automatonLR1.svg') }}">
+    {% endif %}
+    <br>
+    <br>
+    
+    <h3>Es Regular: {{analyser.isRegular}}</h3>
+    {% if analyser.isRegular: %}  
+        <h3>Autómata Regular:</h3>
+        <img src="{{ url_for('static', filename='images/regularAutomaton.svg') }}">
+        <h3>{{ analyser.regex }}</h3>
+    {% endif %}
+
+
+{% endblock %}
