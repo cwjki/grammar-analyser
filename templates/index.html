@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock%}
+
+{% block body %}
+
+{% if boolean: %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>La gramática no es correcta.</strong> Sugerimos revisar la info.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif%}
+
+<div class="form-group shadow-textarea">
+    <form action="/" method="post">
+        <label for="grammar"></label>
+        <textarea class="form-control" name="grammar" id="grammar" rows="5" placeholder="Escriba su gramática aquí..."></textarea><br>
+        <label for="words"></label>
+        <textarea class="form-control" name="words" id="words" rows="5" placeholder="Escriba las cadenas aquí..." ></textarea><br>
+        
+        <div class="row">
+            <div class="col text-center">
+                <input class="btn btn-info" type="submit" id="content" name="content" value='Analizar'/>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

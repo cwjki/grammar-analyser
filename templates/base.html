@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/dist/css/bootstrap.min.css')}}">
+    <title>Grammar Analyzer</title>
+
+    {% block head %}{% endblock%}
+
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-text">
+          <h3>Grammar Analyser</h3>
+        </span>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                <img src="/static/images/info2.svg" width="30" height="30">
+        </button>
+    </nav>
+
+    <br>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Información</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">             
+              <h4><p>Reglas para definir una Gramática:</p></h4>
+              <p>- Todos los símbolos deben estar separados por espacios</p>
+              <p>- Utilice el símbolo '->' para separar la cabecera y el cuerpo de una producción (Ej: X -> a A)</p>
+              <p>- Para representar el símbolo epsilon utilice la palabra 'epsilon'</p>
+              <p>- La cabecera de la primera producción será asumida como símbolo inicial de la gramática</p>
+              <h4><p>Reglas para las cadenas:</p></h4>
+              <p>- Separar los símbolos por espacios</p>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    {% block body %}{% endblock%}
+
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery/dist/jquery.slim.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='popper.js/dist/popper.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap/dist/js/bootstrap.min.js') }}" ></script>
+
+</body>
+</html>
